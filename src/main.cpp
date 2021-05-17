@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 
 
 #define WIDTH 800
@@ -206,8 +207,34 @@ void render(SDL_Renderer *renderer, AppData *data_ptr)
 //use as input the size in kilobytes and convert to the easiest readable size
 double formatSize(int size)
 {
-    return 0;
+    while (std::round(size/1024) >= 1)
+    {
+        size = size / 1024;
+    }
+    
+    return size;
 }//formatSize
+
+std::string getSizeSuffix(int size){
+    int divCount = 0;
+    while (std::round(size/1024) >= 1)
+    {
+        size = size / 1024;
+        divCount++;
+    }
+    if(divCount == 0){
+        return "B";
+    }
+    else if(divCount == 1){
+        return "KB";
+    }
+    else if(divCount == 2){
+        return "MB";
+    }
+    else {
+        return "GB";
+    }
+}//getSizeSuffix
 
 //std::vector<std::string> getFilePaths(std::string path)
 //{
